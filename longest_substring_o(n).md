@@ -1,5 +1,9 @@
 Given a string, find the length of the longest substring without repeating characters.
 
+Input: "abcabcbb" </br>
+Output: 3 </br>
+Explanation: The answer is "abc", with the length of 3. </br>
+
 # Sliding Window 
 
 ```
