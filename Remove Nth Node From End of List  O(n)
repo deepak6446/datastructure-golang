@@ -1,0 +1,52 @@
+[Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/discuss/820020/100-faster-than-all-golang-submission)
+
+Given a linked list, remove the n-th node from the end of list and return its head.
+
+Example:
+
+Given linked list: 1->2->3->4->5, and n = 2.
+
+After removing the second node from the end, the linked list becomes 1->2->3->5.
+
+```
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+import (
+    "fmt"
+)
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+    
+    list_len := 0
+    curr := head
+    for curr != nil {
+        list_len++
+        curr = curr.Next
+    }
+
+    if(list_len==1 && n==1) {
+        return nil
+    }
+    
+    remove_index := list_len-n-1
+    if(remove_index == -1) {
+        head = head.Next
+        return head
+    }
+    
+    curr = head
+    for remove_index > 0 {
+        curr = curr.Next
+        remove_index--
+    }
+
+    remove:=curr.Next
+    curr.Next = remove.Next
+    
+    return head
+}
+```
