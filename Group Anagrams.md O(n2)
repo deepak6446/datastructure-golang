@@ -1,0 +1,68 @@
+![Group Anagrams](Group_Anagrams.png)
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+ 
+
+Example 1:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+Example 2:
+
+Input: strs = [""]
+Output: [[""]]
+Example 3:
+
+Input: strs = ["a"]
+Output: [["a"]]
+
+```
+import (
+"fmt"
+"strings"
+)
+
+func sort_array_char(s string) string {
+    hash := make(map[string]int)
+    for _, val := range s {
+        st := string(val)
+        if hash[st] == 0 {
+            hash[st] = 1
+        }else {
+            hash[st] = hash[st] + 1
+        }
+    }
+    
+    str := "" 
+    for _, v:= range "abcdefghijklmnopqrstuvwxyz" {
+        if hash[string(v)] != 0 {
+            str = str + strings.Repeat(string(v), hash[string(v)])
+        }
+    }
+    return str
+}
+
+func groupAnagrams(strs []string) [][]string {
+    
+    length := len(strs)
+    output := [][]string{}
+    hash := make(map[string][]string)
+    
+    if length == 0 {
+        return output
+    }
+    
+    for key, _:= range strs {
+        inorder := sort_array_char(strs[key]) 
+        hash[inorder] = append(hash[inorder], strs[key])
+    }
+    
+    for _, value := range hash {
+        output = append(output, value)
+    }
+    
+    return output
+}
+```
