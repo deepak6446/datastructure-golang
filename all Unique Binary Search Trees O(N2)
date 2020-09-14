@@ -1,0 +1,42 @@
+/*
+Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
+
+Example:
+
+Input: 3
+Output: 5
+Explanation:
+Given n = 3, there are a total of 5 unique BST's:
+
+   1         3     3      2      1
+    \       /     /      / \      \
+     3     2     1      1   3      2
+    /     /       \                 \
+   2     1         2                 3
+*/
+
+import (
+"fmt"
+)
+
+func numTrees(n int) int {
+    /* the following is the formula for deriving using DP
+     n = 0    t[0] = 1
+     n = 1 [1]   t[1] = 1
+     n = 2 [1, 2]  t[0]*t[1] + t[1][0] = 2  
+     n = 3 [1, 2, 3] (1 root) t[0]*t[2] + (2 roor) t[1]*t[1] +(3root) t[2]*t[0] = 5  
+    */
+
+    totalRootsIn := make(map[int]int)
+    totalRootsIn[0] = 1
+    totalRootsIn[1] = 1
+    
+    for i:=2;i<=n;i++ {
+        totalRootsIn[i] = 0
+        for j:=0;j<=i;j++ {
+            totalRootsIn[i] = totalRootsIn[i] + totalRootsIn[j]*totalRootsIn[i-j-1]
+        }
+    }
+    
+    return totalRootsIn[n]
+}
