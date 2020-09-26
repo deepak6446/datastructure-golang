@@ -1,0 +1,39 @@
+Longest Increasing Subsequence
+
+Given an unsorted array of integers, find the length of longest increasing subsequence.
+
+Example:
+
+Input: [10,9,2,5,3,7,101,18]
+Output: 4 
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. 
+
+/*
+* using DP 
+* store longestsubsequence for each node
+* for a node find if previous all nodes starting from zero has less value * and their longestsubsequence+1 is greater than current node's
+* longestsubsequence if yes store longestsubsequence= previous node
+* longestsubsequence+1 else continue
+*/
+func lengthOfLIS(nums []int) int {
+    if len(nums) == 0 {
+        return 0
+    }
+    
+    output:=make([]int, len(nums))
+    output[0]=1
+    longestSqeLen:=1
+    for i:=1;i<len(nums);i++ {
+        output[i]=1
+        for j:=0;j<i;j++ {
+            if nums[j]<nums[i] && output[i]<output[j]+1{
+                output[i]=output[j]+1    
+                if longestSqeLen<output[i] {
+                    longestSqeLen=output[i]
+                }
+            }
+        }
+    }
+    return longestSqeLen
+    
+}
