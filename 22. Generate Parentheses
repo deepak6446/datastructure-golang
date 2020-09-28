@@ -1,0 +1,26 @@
+/*
+* always start with "(" 
+* you have two choice either add ( or )
+* add ( unless number of ( is less than = n
+* add ) unless number of ) is less than (
+*/
+
+var paranthesis []string
+func recGeneretae(n int, startLen int, endLen int, prevParen string) {
+    if startLen == n && endLen == n {
+        paranthesis = append(paranthesis, prevParen)
+        return
+    }
+    
+    if startLen < n {
+        recGeneretae(n, startLen+1, endLen, prevParen+"(")
+    }
+    if endLen < n &&  endLen < startLen {
+        recGeneretae(n, startLen, endLen+1, prevParen+")")
+    }
+}
+func generateParenthesis(n int) []string {  
+    paranthesis = make([]string, 0)
+    recGeneretae(n, 1, 0, "(")
+    return paranthesis
+}
