@@ -1,1 +1,1 @@
-contains problems solved at leetcode and othe datastructure problems
+contains problems solved at leetcode and other datastructure problems
